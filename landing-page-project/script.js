@@ -26,19 +26,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Highlight active section link in navbar while scrolling
-  window.addEventListener("scroll", () => {
-    sections.forEach(section => {
-      const sectionTop = section.getBoundingClientRect().top;
+  // Intersection Observer for active section highlighting
+  const observerOptions = {
+    root: null,
+    rootMargin: `-${navbarHeight}px 0px 0px 0px`, // Offset for navbar height
+    threshold: 0.6 // 60% of the section is in view
+  };
 
-      if (sectionTop >= 0 && sectionTop <= navbarHeight + 200) {
-        document.querySelectorAll("#navbar a").forEach(link => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${section.id}`) {
-            link.classList.add("active");
-          }
-        });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const sectionId = entry.target.getAttribute("id");
+      const navbarLink = document.querySelector(`#navbar a[href="#${sectionId}"]`);
+
+      if (entry.isIntersecting) {
+        navbarLink.classList.add("active");
+      } else {
+        navbarLink.classList.remove("active");
       }
     });
+  }, observerOptions);
+
+  // Observe each section
+  sections.forEach(section => {
+    observer.observe(section);
   });
 });
