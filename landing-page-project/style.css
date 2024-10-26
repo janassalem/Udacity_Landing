@@ -33,11 +33,11 @@
   padding: 5px 10px;
 }
 
-/* Highlight active link */
 #navbar a.active {
   color: #fff;
   background-color: #555;
   border-radius: 4px;
+  font-weight: bold;
 }
 
 #navbar a:hover {

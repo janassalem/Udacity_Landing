@@ -26,28 +26,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Intersection Observer for active section highlighting
+  // Highlight active section link in navbar while scrolling using Intersection Observer
   const observerOptions = {
     root: null,
-    rootMargin: `-${navbarHeight}px 0px 0px 0px`, // Offset for navbar height
-    threshold: 0.6 // 60% of the section is in view
+    rootMargin: `-${navbarHeight}px 0px 0px 0px`,
+    threshold: 0.6
   };
 
-  const observer = new IntersectionObserver((entries) => {
+  const observerCallback = (entries) => {
     entries.forEach(entry => {
-      const sectionId = entry.target.getAttribute("id");
-      const navbarLink = document.querySelector(`#navbar a[href="#${sectionId}"]`);
-
+      const navLink = document.querySelector(`#navbar a[href="#${entry.target.id}"]`);
       if (entry.isIntersecting) {
-        navbarLink.classList.add("active");
+        navLink.classList.add("active");
       } else {
-        navbarLink.classList.remove("active");
+        navLink.classList.remove("active");
       }
     });
-  }, observerOptions);
+  };
 
-  // Observe each section
-  sections.forEach(section => {
-    observer.observe(section);
-  });
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+  sections.forEach(section => observer.observe(section));
 });
