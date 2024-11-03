@@ -29,14 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Highlight active section link in navbar while scrolling
-  window.addEventListener("scroll", () => {
+  const highlightActiveSection = () => {
     let currentSection = null;
 
     sections.forEach(section => {
       const sectionPosition = section.getBoundingClientRect();
 
-      // Check if the section is in the viewport (near the top)
-      if (sectionPosition.top >= 0 && sectionPosition.top <= window.innerHeight / 2) {
+      // Check if the section is in the viewport (top within view)
+      if (sectionPosition.top <= navbarHeight && sectionPosition.bottom > navbarHeight) {
         currentSection = section.getAttribute("id");
       }
     });
@@ -49,5 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
         link.classList.remove("active");
       }
     });
-  });
+  };
+
+  window.addEventListener("scroll", highlightActiveSection);
 });
