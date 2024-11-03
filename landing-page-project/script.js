@@ -1,3 +1,5 @@
+// script.js
+
 document.addEventListener("DOMContentLoaded", () => {
   const sections = document.querySelectorAll(".section");
   const navbarList = document.getElementById("navbar-list");
@@ -30,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const observerOptions = {
     root: null,
     rootMargin: `-${navbarHeight}px 0px 0px 0px`,
-    threshold: 0.6
+    threshold: 0.5 // Adjusted for more responsive highlighting
   };
 
   const observerCallback = (entries) => {
