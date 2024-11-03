@@ -43,9 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Apply active class to the corresponding navbar link
     document.querySelectorAll("#navbar a").forEach(link => {
-      link.classList.remove("active");
       if (link.getAttribute("href").substring(1) === currentSection) {
         link.classList.add("active");
+      } else {
+        link.classList.remove("active");
       }
     });
   });
